@@ -76,6 +76,19 @@ socket.on('confirmPrize', function (data) {
     } catch (e) {}
 });
 
+// Temp ban
+socket.on('ban', function (data) {
+    try {
+        const channelObject = channels.find(
+            findChannel => findChannel.code === data.code
+        )
+
+        if (!channelObject) return
+
+        client.say(channelObject.channel, `/timeout ${data.target} 120`)
+    } catch (e) {}
+});
+
 /* SUB EVENTS */
 
 client.on('subscription', function (channel, username, methods, msg, userstate) {
